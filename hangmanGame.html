@@ -30,14 +30,17 @@ while (remainingLetters>0){
 	}
 	else {
 	//updare game state
-	for (var j=0;j=word.length;j++){
-		if(word[j]==guess){
-			answerArray[j]=guess;
-			remainingLetters--;
+		for (var j=0;j=word.length;j++){
+			if(word[j]==guess){
+				answerArray[j]=guess;
+				remainingLetters--;
+			}
 		}
 	}
-	}
+//end of the game LOOP
 }
+alert(answerArray.join("  "));
+alert("Good job! the answer was "+word);
 </script>
 </body>
 </html>
