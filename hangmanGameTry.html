@@ -4,6 +4,9 @@
 </head>
 <body>
 <h1>Let's play hangman game</h1>
+<h2>secret words You need to discover:</h2>
+<h3>javascript - elita - mason - pancake</h3>
+
 <script>
 //array of words
 var words=["javascript","elita","mason","pancake"];
@@ -12,7 +15,7 @@ var word=words[Math.floor(Math.random()*words.length)];
 //set an array for answer
 var answerArray=[];
 for (var i=0;i<word.length;i++){
-answerArray[i]="_";
+answerArray[i]="___";
 }
 var remainingLetters=word.length;
 //game loop
