@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<head>
+</head>
+<body>
+<script>
+var arrayExample=["a","b","c"];
+var letterExample="h";
+function myFunction(p1,p2){
+	for(var i=0;i<p1.length;i++){
+		if (p1[i]===p2){
+			return true+" "+p2;
+			}
+		else{
+			return false+" "+p2;
+			}
+		}
+	}
+
+var result=myFunction(arrayExample,letterExample);
+alert(result);
+
+</script>
+</body>
+</html>
