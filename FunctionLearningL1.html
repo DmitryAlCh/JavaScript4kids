@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<header>
+<header>
+<body>
+<script>
+//Simple function
+var myFunction=function(){
+	console.log("Hello World");
+}
+myFunction();
+
+//simple function with 1 argument
+var drawCats = function(howManyTimes){
+	for (var i=0;i<howManyTimes;i++){
+		console.log(i+" =^.^=");
+	}
+}
+drawCats(10);
+
+//simple function with 2 arguments;
+var printMultipleTimes=function(howManyTimes,whatToPrint){
+	for (j=0;j<howManyTimes;j++){
+		console.log(j+" "+whatToPrint);
+		}
+	}
+printMultipleTimes(10,"=^.^=");
+
+//returning values from functions
+var doubling = function(number){
+	return number*2;
+	}
+doubling(43);
+
+//picking a random word;
+var words=["flower", "rastaman", "herb", "jamaica"];
+var pickRandomWord = function(wordList){
+	return wordList[Math.floor(Math.random()*wordList.length)];
+	}
+pickRandomWord(words);
+
+//functtion as an argument to another function
+function sumator(arg1,arg2){
+	return arg1+arg2;
+	}
+function multiplier(arg1,arg2){
+	return arg1*arg2;
+	}
+sumator(multiplier(36325,9824),777);
+
+//compare arrays by lenght, then by values;
+function areArraysSame(array1,array2){
+	if (array1.length==array2.length){
+		for (var z=0;z<array1.length;z++){
+			if (array1[z]==array2[z]){
+				return true;
+				}
+			}
+		
+		}
+		return false;
+	}
+var array1=[1,2,3];
+var array2=[1,2,3,4];
+
+//need to rewrite Hangman and use functions
+</script>
+</body>
+</html>
