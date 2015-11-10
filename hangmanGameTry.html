@@ -8,6 +8,17 @@
 <h3>javascript - elita - mason - pancake</h3>
 
 <script>
+/*function compareArrayToLetter(Array,letter){
+	for (var i=0;i<Array.length;i++){
+		if (Array[i]===letter){
+		return true;
+		}
+		else {
+		return false;
+		}
+	}
+}*/
+
 //array of words
 var words=["javascript","elita","mason","pancake"];
 //select random word
@@ -18,12 +29,17 @@ for (var i=0;i<word.length;i++){
 answerArray[i]="___";
 }
 var remainingLetters=word.length;
+var tryAmount=remainingLetters;
+boolean answOne=false;
+boolean ansTwo=false;
+
 //game loop
 while (remainingLetters>0){
 //show player progress
 	alert(answerArray.join(" "));
 //get guess from player
-	var guess=prompt("Guess a letter or click cancel to stop playing");
+	var guessRaw=prompt("Guess a letter or click cancel to stop playing, tries left: "+tryAmount);
+	var guess=guessRaw.toLowerCase();
 	if (guess==null){
 //exit game loop
 		break;
@@ -33,6 +49,13 @@ while (remainingLetters>0){
 	}
 	else {
 //update game state
+		
+		
+		/*if compareArrayToLetter(word,guess)==true{
+			alert("Duplicate Input " +guess);
+		}*/
+		
+		
 		for (var j=0;j<word.length;j++){
 			if (word[j]===guess){
 				answerArray[j]=guess;
@@ -40,7 +63,12 @@ while (remainingLetters>0){
 				}
 			}
 		}
-	}
+//check if any tries left
+	/*if (tryAmount<0){
+		alert("You ran out of tries, and you lose");
+		break;	
+	}*/
+}
 //end of the game LOOP
 
 
