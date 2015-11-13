@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<head>
+<title>Guess word game</title>
+</head>
+<body>
+<h1>Hangman game, implemented fully with functions</h1>
+<h2>hiden words: taksa, lapa, hleb</h2>
+<script>
+var wordArray = ["taksa", "lapa", "hleb"];
+var pickword=function(wordArray){
+	return wordArray[Math.floor(Math.random()*wordArray.length)];
+	}
+var setupAnswerArray = function(word){
+	var temp=[]; //temporary string;
+	for (i=0;i<word.length;i++){
+		temp[i]="__";
+		}
+	temp.join("*");
+	return temp;
+	}
+var showPlayerProgress=function(answerArray){
+	alert("the hidden word is: "+answerArray);
+	}
+var getGuess=function(messageText){
+	var inputLetter=prompt(messageText);
+	return inputLetter;
+	}
+var updateGameState=function(guess,word,answerArray){
+	var hits=0;
+	for (var j=0;j<word.length;j++){
+		if (word[j]===guess){
+			answerArray[j]=guess;
+			hits++;
+			}
+		}
+	return hits;
+	}
+var showAnswerAndCongratulatePlayer=function(answerArray){
+	alert("Nice job, hidde word was "+answerArray);
+	
+	}
+var word=pickword(wordArray); //written
+var answerArray = setupAnswerArray(word); //written
+var remainingLetters = word.length;
+
+while (remainingLetters>0){
+	showPlayerProgress(answerArray);
+	var guess=getGuess("Please enter a letter: "); //written
+	if (guess===null){
+		alert("loser");
+		break; //break while Loop;
+		}
+	else if (guess.length !=1){
+		alert("Please enter a single letter.");
+		}
+	else{
+		var correctGueses=updateGameState(guess,word,answerArray);//written
+		remainingLetters-=correctGueses;
+		}
+	}
+showAnswerAndCongratulatePlayer(answerArray);//function to be written;
+</script>
+</body>
+</html>
