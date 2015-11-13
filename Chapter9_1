@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<head>
+<title>test</title>
+</head>
+<body>
+<h1 id="main-heading">Hello World!</h1>
+<h2>aa</h2>
+<script>
+var headingElement = document.getElementById("main-heading");
+console.log(headingElement.innerHTML);
+var newHeadingElement=prompt("Please provide a new heading:");
+headingElement.innerHTML=newHeadingElement;
+</script>
+</body>
+</html>
