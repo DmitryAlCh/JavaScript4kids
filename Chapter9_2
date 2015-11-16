@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<head>
+<title>test</title>
+</head>
+<body>
+<h1 id="main-heading">Hello World!</h1>
+<h2>aa</h2>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+<script>
+var newHeadingElement=prompt("Please provide a new heading:");
+$("#main-heading").text(newHeadingElement);
+$("body").append("<p>this is a new paragraph</p>");
+for (var i=0;i<3;i++){
+	var hobby = prompt("Tell me your favorite dishes: ");
+	$("body").append("<p>"+hobby+"</p>");
+	}
+</script>
+</body>
+</html>
