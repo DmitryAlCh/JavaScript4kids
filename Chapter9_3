@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<head>
+<title>test</title>
+</head>
+<body>
+<h1 id="main-heading">Hello World!</h1>
+<h2>aa</h2>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+<script>
+$("h1").slideUp(3000).slideDown(3000);
+$("h2").fadeOut(3000);
+</script>
+</body>
+</html>
