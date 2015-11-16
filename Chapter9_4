@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<head>
+<title>test</title>
+</head>
+<body>
+<h1 id="main-heading">Hello World!</h1>
+<h2>aa</h2>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+<script>
+var names=["Adaam", "Volodja", "Ken"];
+$("#main-heading").text("My Friends");// when Identifier use "#"
+for (var i=0;i<names.length;i++){
+	console.log(i);
+	$("body").append("<p>"+names[i]+"</p>"); //when DOM element use "body" directly
+	$("p").hide(3000).fadeIn(3000);
+	}
+	$("p").append(" smells");
+	
+
+</script>
+<p>Name</p>
+</body>
+</html>
