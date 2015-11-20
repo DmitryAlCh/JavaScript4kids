@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<head>
+<title>test</title>
+</head>
+<body>
+<h1 id="main-heading">Hello World!</h1>
+<h2>aa</h2>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+<script>
+var timeUp=function(){
+	alert("Time is running out");
+	}
+var timeoutId=setTimeout(timeUp,3000);//setTimeout-Jquery function; returns an number (int) as identifier;
+clearTimeout(timeoutId);//clear timeOut - jquery function, takes timer identifier as argument; 	
+
+//setInterval(func,interval) - calls a function with set interval;
+
+</script>
+<p>Name</p>
+</body>
+</html>
