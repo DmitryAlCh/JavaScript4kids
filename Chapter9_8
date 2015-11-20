@@ -7,10 +7,10 @@
 <h2>aa</h2>
 <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
 <script>
-$("html").mousemove(function(event){ //pass a function directly
+$("html").mousemove(function(event){ //pass a function directly if we choos $("html").click it will follow clicks not moves.
 	$("#main-heading").offset({        //function itself
-								left:event.pageX,
-								top:event.pageY});
+		left:event.pageX,
+		top:event.pageY});
 	})
 
 </script>
