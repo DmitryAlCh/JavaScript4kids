@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<head>
+<title>Interactive porgramming</title>
+</head>
+<body>
+<h1 id="main-heading">Hello World!</h1>
+<h2>aa</h2>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+<script>
+var clickHandler=function(event){
+	var xCoor=Math.floor(event.pageX); //x coordinates
+	var yCoor=Math.floor(event.pageY); //y coordinates
+	console.log("Click "+ xCoor+" "+ yCoor);
+	}
+$("body").click(clickHandler);// jquery on click on h1 or body, we call function clickHandler;
+
+</script>
+<p>Name</p>
+</body>
+</html>
