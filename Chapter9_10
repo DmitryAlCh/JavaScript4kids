@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<head>
+<title>Interactive porgramming</title>
+</head>
+<body>
+<h1 id="main-heading">Hello World!</h1>
+<h2>aa</h2>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+<button id="stop">stop animation</button>
+<script>
+//starting offsets;
+var leftOffset=0;
+var topOffset=0;
+
+var direction="right";
+var marginX=400;
+var marginY=400;
+
+var rightAndDown = function(){
+	
+	if (movFunction()[0]>200){
+		direction="down";
+		};
+	}
+var leftAndUp=function(){
+}	
+	
+
+var movFunction = function(){
+	$("#main-heading").offset({left:leftOffset, top:topOffset});	
+	switch (direction){
+		case "right":
+			leftOffset=leftOffset+10;
+			break;
+		case "down":
+			topOffset=topOffset+10;
+			break;
+		case "left":
+			leftOffset=leftOffset-10;
+			break;
+		case "up":
+			topOffset=topOffset-10;
+		}
+	var coordinateX=$("#main-heading").offset().left;
+	var coordinateY=$("#main-heading").offset().top;
+	var coordinates=[coordinateX,coordinateY];// 0=X, 1 =Y,
+	console.log(coordinates[1]);
+	return coordinates;
+	}
+var clickHandler=function(){
+	clearInterval(intervalId);//cancel animation
+	}
+
+
+var intervalId=setInterval(boundaries,600); //function to be written;
+
+
+$("html").click(clickHandler);//animation cancel on mouse click;
+
+</script>
+<p>Name</p>
+</body>
+</html>
