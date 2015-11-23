@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<head>
+<title>Interactive porgramming</title>
+</head>
+<body>
+<h1 id="main-heading">Hello World!</h1>
+<h2>aa</h2>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+<button id="stop">stop animation</button>
+<script>
+//starting offsets;
+var leftOffset=0;
+var rightOffset;
+var topOffset=0;
+var bottomOffset;
+var direction="right";
+
+var movDirection=function(directionSwicth){
+	return;
+	}
+var movFunction = function(){
+		switch (direction){
+			case "right":
+			if (leftOffset<60){
+				$("#main-heading").offset({left:leftOffset});
+				leftOffset=leftOffset+10;
+				console.log("going right");
+				}
+			else direction="down";
+				break;
+			case "down":
+			if (topOffset<60){
+				$("#main-heading").offset({top:topOffset});
+				topOffset=topOffset+10;
+				console.log("going down");
+				}
+			else direction="left";
+				break;
+			case "left":
+			if (leftOffset>0){
+				$("#main-heading").offset({left:leftOffset});
+				leftOffset=leftOffset-10;
+				console.log("going left");
+				}
+				break;
+			case "up":
+			if (topOffset>0){
+				$("#main-heading").offset({top:topOffset});
+				topOffset=topOffset-10;
+				console.log("going up");
+				}
+				break;
+			}
+	}
+var clickHandler=function(){
+	clearInterval(intervalId);//cancel animation
+	}
+
+
+var intervalId=setInterval(movFunction,600); //function to be written;
+
+
+$("html").click(clickHandler);//animation cancel on mouse click;
+
+</script>
+<p>Name</p>
+</body>
+</html>
