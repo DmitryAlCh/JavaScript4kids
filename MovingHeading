@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<head>
+<title>functions</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script> 
+<button id="butt">button</button>
+<script>
+	var amount=10;
+	var elementId="#butt";
+	var direction=[1,0];
+	var marginCounter=0; //how many times we reach any margin;
+	var marginValue=[30,30,0,0]; //rihgt upper end, right bottom end, left bottom end, left upper end;
+	var movv=function(elementId,direction,amount){
+	//elementID="#butt";
+	//direction = -1 or 0 or +1; [0]=xCoord [1]=yCoord.
+	//amount = precise offset
+		if (direction[0]!=0){//if movement is horizontal
+			$(elementId).offset({left:amount});
+		}
+		else{
+			$(elementId).offset({top:direction[1]*amount});
+		}
+		//amount=amount+amount;
+	}
+	var callerRight=function(marginValue){
+	//move left--check Xcoord---reached margin---call movDown
+		if (getCoord(elementId,direction)<marginValue[marginCounter]){
+			console.log("moving right or down");
+			movv(elementId,direction,amount);
+			amount=amount+10;
+		}
+		else if (marginValue[marginCounter]==0){
+			amount=marginValue[marginCounter-1];
+			console.log("moving left or up"+amount);
+			movv(elementId,direction,amount);
+			amount=amount-10;
+			return;
+		}
+		else {
+			return true;//means that margin reached;
+		}
+	}
+	var accendingMov=function(){
+		if (callerRight(marginValue)==true){
+			//need to switch direction
+			amount=10;
+			direction=directionControl();
+			console.log("works");
+		}
+	}
+	
+	
+	var directionControl=function(){ //when margin reached, call this function
+		switch (marginCounter){
+			case 0: //down movement
+				direction=[0,1];
+				marginCounter=marginCounter+1;
+				return direction;
+			break;
+			case 1: //left movement
+				direction=[-1,0];
+				marginCounter=marginCounter+1;
+				return direction;
+			break;
+			case 2: //up movement
+				direction=[0,-1];
+				marginCounter=marginCounter+1;
+				return direction;
+			break;
+			case 3: //right movement`
+				direction=[1,0];
+				marginCounter=0;
+				return direction;
+			break;
+		}
+	}
+	
+	var getCoord=function(elementId,direction){
+	//elementId="butt";
+	//direction = which offset to return.
+		if (direction[0]!=0){
+			console.log("horizontal movement");
+			return $(elementId).offset().left;
+		}
+		else {
+			console.log("vertical movement");
+			return $(elementId).offset().top;
+		}
+		
+		
+	}
+</script>
+</body>
+</html>
