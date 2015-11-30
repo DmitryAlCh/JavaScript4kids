@@ -1,0 +1,8 @@
+var speak = function(){
+	console.log("my name is "+this.name+" !"); //use THIS. to refer to object.
+}
+var cat={name:"Lapa",age:10,speak:speak};
+var dog={name:"taksa",age:6,speak:speak};
+
+cat.speak();//both share method speak
+dog.speak();
