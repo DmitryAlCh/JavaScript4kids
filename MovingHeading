@@ -1,95 +1,87 @@
 <!DOCTYPE HTML>
 <head>
-<title>functions</title>
+<title>Interactive porgramming</title>
 </head>
 <body>
-<script src="https://code.jquery.com/jquery-2.1.0.js"></script> 
-<button id="butt">button</button>
+<h1 id="main-heading">Scuko dvigaeco</h1>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+<br/>
+<br/>
+<h3>Original task: make a moving element using <code>setInterval</code> function<h3>
+<h4>click anywhere to cancel</h4>
 <script>
-	var amount=10;
-	var elementId="#butt";
-	var direction=[1,0];
-	var marginCounter=0; //how many times we reach any margin;
-	var marginValue=[30,30,0,0]; //rihgt upper end, right bottom end, left bottom end, left upper end;
-	var movv=function(elementId,direction,amount){
-	//elementID="#butt";
-	//direction = -1 or 0 or +1; [0]=xCoord [1]=yCoord.
-	//amount = precise offset
-		if (direction[0]!=0){//if movement is horizontal
-			$(elementId).offset({left:amount});
-		}
-		else{
-			$(elementId).offset({top:direction[1]*amount});
-		}
-		//amount=amount+amount;
+
+var place={x:0,y:0}; 
+var direction={riWise:true,doWise:false,leWise:false,upWise:false};
+
+
+function clickHandler(){
+	clearInterval(intervalId);
 	}
-	var callerRight=function(marginValue){
-	//move left--check Xcoord---reached margin---call movDown
-		if (getCoord(elementId,direction)<marginValue[marginCounter]){
-			console.log("moving right or down");
-			movv(elementId,direction,amount);
-			amount=amount+10;
-		}
-		else if (marginValue[marginCounter]==0){
-			amount=marginValue[marginCounter-1];
-			console.log("moving left or up"+amount);
-			movv(elementId,direction,amount);
-			amount=amount-10;
+function getPlace(){
+	place.x=$("#main-heading").offset().left;
+	place.y=$("#main-heading").offset().top;
+	return place;
+}
+var increase=1;
+var decrease=-1;
+var step=2;
+var margins=[70,70,10,10]; //70 - right upper corner, 70 - right lower corner, 10, left lower corner, 10, left upper corner;
+var elementId="#main-heading";//element that will move;
+function dirSwitch(){
+	if (direction.riWise==true){
+		//console.log("napravo= "+direction.riWise);
+		if (movHor(increase,step,margins[0])<0){ //increase coord, with step, until margin
+			//console.log("margin rached");
+			direction.riWise=false;
+			direction.doWise=true;
 			return;
 		}
-		else {
-			return true;//means that margin reached;
+	}
+	if (direction.doWise==true){
+		//console.log("Vniz ravno= "+direction.doWise);
+		if (movVer(increase,step,margins[1])<0){ //increase coord, with step, until margin
+			//console.log("margin reached");
+			direction.doWise=false;
+			direction.leWise=true;
+			return;
 		}
 	}
-	var accendingMov=function(){
-		if (callerRight(marginValue)==true){
-			//need to switch direction
-			amount=10;
-			direction=directionControl();
-			console.log("works");
+	if (direction.leWise==true){
+		//console.log("nalevo ravno= "+direction.leWise);
+		if (movHor(decrease,step,margins[2])>0){ //decrease coord, with step, until margin
+			direction.leWise=false;
+			direction.upWise=true;
+			return;
 		}
 	}
-	
-	
-	var directionControl=function(){ //when margin reached, call this function
-		switch (marginCounter){
-			case 0: //down movement
-				direction=[0,1];
-				marginCounter=marginCounter+1;
-				return direction;
-			break;
-			case 1: //left movement
-				direction=[-1,0];
-				marginCounter=marginCounter+1;
-				return direction;
-			break;
-			case 2: //up movement
-				direction=[0,-1];
-				marginCounter=marginCounter+1;
-				return direction;
-			break;
-			case 3: //right movement`
-				direction=[1,0];
-				marginCounter=0;
-				return direction;
-			break;
+	if (direction.upWise==true){
+		//console.log("Naverh ravno= "+direction.upWise);
+		if (movVer(decrease,step,margins[3])>0){ //decrease coord, with step, until margin
+			direction.upWise=false;
+			direction.riWise=true;
+			return;
 		}
 	}
-	
-	var getCoord=function(elementId,direction){
-	//elementId="butt";
-	//direction = which offset to return.
-		if (direction[0]!=0){
-			console.log("horizontal movement");
-			return $(elementId).offset().left;
-		}
-		else {
-			console.log("vertical movement");
-			return $(elementId).offset().top;
-		}
-		
-		
+	return;
+}
+var movHor=function(direct,step,margin){ //horizontal movement with step;
+	var currentXY=getPlace();
+	var offsetHor=(currentXY.x+step*direct);
+	$(elementId).offset({left:offsetHor});
+	return (margin-offsetHor);
+}
+var movVer=function(direct,step,margin){ //vertical movement with step;
+	var currentXY=getPlace();
+	var offsetVer=(currentXY.y+step*direct);
+	$(elementId).offset({top:offsetVer});
+	return (margin-offsetVer);
 	}
+
+
+var intervalId=setInterval(dirSwitch,50); //call function 1 time in 50ms;
+$("html").click(clickHandler);//animation cancel on mouse click;
+
 </script>
 </body>
 </html>
