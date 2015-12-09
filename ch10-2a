@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<head>
+<title>Interactive porgramming</title>
+</head>
+<body>
+<h1 id="main-heading">Drawing cars using object constructor</h1>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+
+<script>
+var Car=function(x,y){
+	this.x=x;
+	this.y=y;
+}
+Car.prototype.draw=function(){ //adding a method to object using "object.prototype.methodName"
+	var carHtml='<img src="http://nostarch.com/images/car.png">';
+	var carElement=$(carHtml);
+	carElement.css({position: "absolute",left: this.x,top: this.y});
+	$("body").append(carElement);
+}
+var tesla = new Car(10,40);
+var nissan= new Car(100,400);
+
+tesla.draw();
+nissan.draw();
+</script>
+</body>
+</html>
