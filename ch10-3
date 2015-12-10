@@ -7,9 +7,12 @@
 <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
 
 <script>
-var Car=function(x,y){
-	this.x=x;
+var Car=function(x,y,distance){// x,y,distance - values we pass, names are not important;
+	this.x=x; //this.x - name of object's entity.  Name is important;
 	this.y=y;
+	this.draw(); //we call function at oonce, as object is created;
+	this.distance=distance; //object.distance = distance. 
+	
 }
 Car.prototype.draw=function(){ //adding a method to object using "object.prototype.methodName"
 	var carHtml='<img src="http://nostarch.com/images/car.png">';
@@ -17,29 +20,38 @@ Car.prototype.draw=function(){ //adding a method to object using "object.prototy
 	this.carElement.css({position: "absolute",left: this.x,top: this.y});
 	$("body").append(this.carElement);
 }
-Car.prototype.moveRight=function(){
-	this.x += 5;
+Car.prototype.moveRight=function(distance){
+	console.log("move right method called");
+	this.x += this.distance;
 	this.carElement.css({position: "absolute", left: this.x,top: this.y});
 	//return "moved";
 }
-Car.prototype.moveLeft=function(){
-	this.x -=5;
+Car.prototype.moveLeft=function(distance){
+	this.x -=this.distance;
 	this.carElement.css({left: this.x, top: this.y});
 }
-Car.prototype.moveDown=function(){
-	this.y+=5;
+Car.prototype.moveDown=function(distance){
+	this.y+=this.distance;
 	this.carElement.css({left: this.x, top: this.y});
 }
-Car.prototype.moveUp=function(){
-	this.y-=5;
+Car.prototype.moveUp=function(distance){
+	this.y-=this.distance;
 	this.carElement.css({left: this.x, top: this.y});
 }
 
-var tesla = new Car(10,40);
-var nissan= new Car(100,400);
+function randomDistance(maxVal){
+	return Math.floor(Math.random()*maxVal);
+}
+function primalCaller(){
+	
+}
+var tesla = new Car(10,40,randomDistance(5));
+var nissan= new Car(100,400,randomDistance(5));
+// ************************************
+var timeId=setInterval(tesla.moveRight,3000); //not finished yet
 
-tesla.draw();
-nissan.draw();
+//tesla.draw();
+//nissan.draw();
 
 
 </script>
