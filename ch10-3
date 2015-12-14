@@ -4,6 +4,17 @@
 </head>
 <body>
 <h1 id="main-heading">Drawing cars using object constructor</h1>
+<h2>Original task:</h2>
+<ul>
+	<li>Draw 2 cars as instances of 1 object</li>
+	<li>Make them move with Setinterval</li>
+	<li>Move with random speeds</li>
+</ul>
+<h2>Additions in process</h2>
+<ul>
+	<li>make things stop when cross the finish line</li>
+	<li>....</li>
+</ul>
 <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
 
 <script>
@@ -21,8 +32,8 @@ Car.prototype.draw=function(){ //adding a method to object using "object.prototy
 	$("body").append(this.carElement);
 }
 Car.prototype.moveRight=function(distance){
-	console.log("move right method called");
-	this.x += this.distance;
+	//console.log("move right method called");
+	this.x +=randomDistance(this.distance); //Call random distance from inside method.
 	this.carElement.css({position: "absolute", left: this.x,top: this.y});
 	//return "moved";
 }
@@ -43,13 +54,22 @@ function randomDistance(maxVal){
 	return Math.floor(Math.random()*maxVal);
 }
 function primalCaller(){
+	tesla.moveRight(); //no arguments, beacause they are passed, at creation
+	nissan.moveRight();
+	return "function called";
+}
+var tesla = new Car(10,240,5); //here we pass distance
+var nissan= new Car(10,300,5);
+// ************************************
+var timeId=setInterval(primalCaller,30); //not finished yet
+var clickHandler=function(){
+	clearInterval(timeId);
+}
+$("html").click(clickHandler);
+
+function emStop(){
 	
 }
-var tesla = new Car(10,40,randomDistance(5));
-var nissan= new Car(100,400,randomDistance(5));
-// ************************************
-var timeId=setInterval(tesla.moveRight,3000); //not finished yet
-
 //tesla.draw();
 //nissan.draw();
 
