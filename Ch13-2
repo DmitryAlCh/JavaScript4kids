@@ -4,7 +4,7 @@
 </head>
 <body>
 <script src="https://code.jquery.com/jquery-2.1.0.js"></script> 
-	<canvas id="canvas" width="200" height="200"></canvas>
+	<canvas id="canvas" width="400" height="400"></canvas>
 <script>
 var canvas=document.getElementById("canvas");// assign canvas element to canvas variable
 var ctx=canvas.getContext("2d"); //we pass string "2d" to canvas element this way
@@ -12,6 +12,9 @@ ctx.fillStyle="red";
 for (var i=0;i<8;i++){
 	ctx.fillRect(10*i,10*i,10,10); //upper left angle (x=10,y=0); length x plane, lenght Y plane;
 }
+ctx.strokeStyle="orange"; //color
+ctx.lineWidth=4;// 
+ctx.strokeRect(0,200,200,10); starting X, starting Y, X-lenght, Y-height;
 </script>
 </body>
 </html>
