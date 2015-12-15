@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<head>
+<title>canvas</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script> 
+	<canvas id="canvas" width="200" height="200"></canvas>
+<script>
+var canvas=document.getElementById("canvas");// assign canvas element to canvas variable
+var ctx=canvas.getContext("2d"); //we pass string "2d" to canvas element this way
+ctx.fillStyle="red";
+for (var i=0;i<8;i++){
+	ctx.fillRect(10*i,10*i,10,10); //upper left angle (x=10,y=0); length x plane, lenght Y plane;
+}
+</script>
+</body>
+</html>
