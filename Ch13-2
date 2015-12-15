@@ -14,7 +14,7 @@ for (var i=0;i<8;i++){
 }
 ctx.strokeStyle="orange"; //color
 ctx.lineWidth=4;// 
-ctx.strokeRect(0,200,200,10); starting X, starting Y, X-lenght, Y-height;
+ctx.strokeRect(0,200,200,10);// starting X, starting Y, X-lenght, Y-height;
 </script>
 </body>
 </html>
