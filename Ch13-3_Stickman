@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<head>
+<title>canvas lines</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script> 
+	<canvas id="canvas" width="400" height="400"></canvas>
+<script>
+var canvas=document.getElementById("canvas"); //select our canvas
+var ctx=canvas.getContext("2d");//pas 2s to our canvas.
+ctx.lineWidth=4;
+ctx.strokeStyle="blue";
+ctx.strokeRect(20,10,20,20); //head
+ctx.beginPath(); // we call method to tell this is a new path;
+	ctx.moveTo(30,30);//moves startitn point to 30,30; center of head
+	ctx.lineTo(30,90);//draws a line from last moveTo to 30,90; from head to groin
+	ctx.lineTo(10,140);//groin to left head
+	ctx.moveTo(30,90);//move to groin
+	ctx.lineTo(50,140);//groin to left leg
+	ctx.moveTo(30,50);//move to chest
+	ctx.lineTo(10,40);//chest to left arm
+	ctx.moveTo(30,50);//chest
+	ctx.lineTo(50,40);//chest to right arm
+ctx.stroke(); //this methos ends-closes beginPath() method;
+
+</script>
+</body>
+</html>
