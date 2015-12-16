@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<head>
+<title>Canvas, Snowman</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script> 
+	<canvas id="canvas" width="400" height="400"></canvas>
+<script>
+var canvas=document.getElementById("canvas");
+var ctx=canvas.getContext("2d");
+
+var circle=function(x,y,radius,color,fillOrOutline){
+		ctx.strokeStyle=color; //line color
+		ctx.fillStyle=color; //fill color
+		ctx.beginPath(); //starting drawing
+			ctx.arc(x,y,radius,Math.PI*2,false);//circle itself
+		switch (fillOrOutline){
+		case false:
+			ctx.stroke(); //finish as Outline (closing beginPath)
+			break;
+		case true:
+			ctx.fill(); //finish as filled circle (closing beginPath)
+			break;
+		}
+	}
+	
+//snowman
+circle(100,50,20,"darkBlue",false);//false = outline circle
+circle(100,100,30,"darkBlue",false);
+circle(100,85,3,"darkBlue",true); //true = filled circle
+circle(100,100,3,"darkBlue",true);
+circle(100,115,3,"darkBlue",true);
+circle(100,55,3,"darkBlue",true);
+circle(95,45,3,"red",true);
+circle(105,45,3,"red",true);
+
+</script>
+</body>
+</html>
