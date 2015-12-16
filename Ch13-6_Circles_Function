@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<head>
+<title>Canvas, Colored circles</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script> 
+	<canvas id="canvas" width="400" height="400"></canvas>
+<script>
+var canvas=document.getElementById("canvas");
+var ctx=canvas.getContext("2d");
+
+var circle=function(x,y,radius,color){
+	ctx.strokeStyle=color;
+	ctx.beginPath();
+		ctx.arc(x,y,radius,Math.PI*2,false);
+	ctx.stroke();
+}
+circle(100,100,20,"red");
+circle(100,100,30,"orange");
+circle(100,100,40,"yellow");
+circle(100,100,50,"green");
+circle(100,100,60,"skyBlue");
+circle(100,100,70,"blue");
+circle(100,100,80,"violet");
+
+</script>
+</body>
+</html>
