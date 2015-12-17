@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<head>
+<title>Moving square</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script> 
+	<canvas id="canvas" width="400" height="400" style="border:1px solid blue;"></canvas>
+<p>make a moving square via fillRect</p>
+<script>
+var canvas=document.getElementById("canvas");
+var ctx=canvas.getContext("2d");
+
+var timerId=setInterval(movRect,100);
+var calls = 0;
+
+function movRect(){
+	calls++;
+	ctx.clearRect(0,0,225,200);
+	ctx.fillRect(calls,0,20,20);
+	if (calls>200){
+		calls=0;
+		//clearInterval(timerId);
+		console.log("interval cancelled");
+	}
+}
+</script>
+</body>
+</html>
