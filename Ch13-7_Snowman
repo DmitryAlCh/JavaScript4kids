@@ -25,14 +25,17 @@ var circle=function(x,y,radius,color,fillOrOutline){
 	}
 	
 //snowman
-circle(100,50,20,"darkBlue",false);//false = outline circle
-circle(100,100,30,"darkBlue",false);
-circle(100,85,3,"darkBlue",true); //true = filled circle
-circle(100,100,3,"darkBlue",true);
-circle(100,115,3,"darkBlue",true);
-circle(100,55,3,"darkBlue",true);
-circle(95,45,3,"red",true);
-circle(105,45,3,"red",true);
+function snowman(x,y){
+	circle(x,y,20,"darkBlue",false);//false = outline circle
+	circle(x,y+50,30,"darkBlue",false);
+	circle(x,y+35,3,"darkBlue",true); //true = filled circle
+	circle(x,y+50,3,"darkBlue",true);
+	circle(x,y+65,3,"darkBlue",true);
+	circle(x,y+5,3,"darkBlue",true);
+	circle(x-5,y-5,3,"red",true);
+	circle(x+5,y-5,3,"red",true);
+	}
+snowman(50,50);
 
 </script>
 </body>
