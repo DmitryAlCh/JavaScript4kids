@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<head>
+<title>Painting with mouse</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script> 
+	<canvas id="canvas" width="400" height="400" style="border:1px solid blue;"></canvas>
+<p>need to add 3mm filled circle where mouse goes</p>
+<script>
+var canvas=document.getElementById("canvas");
+var ctx=canvas.getContext("2d");
+$("#canvas").mousemove(function(event){ 
+//jquery function: $(element).method(function(event){function body});
+	putCircle(event.pageX,event.pageY);
+	//console.log(event.pageX);
+});
+function putCircle(x,y){
+	ctx.fillStyle="purple";
+	ctx.beginPath(); //open Drawing
+		ctx.arc(x,y,3,0,Math.PI*2,false);
+	ctx.fill(); //end drawing
+}
+</script>
+</body>
+</html>
