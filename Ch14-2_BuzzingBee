@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<head>
+<title>Buzzing BEE</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script> 
+	<canvas id="canvas" width="400" height="400" style="border:1px solid blue;"></canvas>
+<p>Buzzing Bee</p>
+<script>
+var canvas=document.getElementById("canvas");
+var ctx=canvas.getContext("2d");
+
+var x=100; //starting X
+var y=100; //startin Y
+
+
+var primeCall=function(){
+	ctx.clearRect(0,0,200,200); //erasing everything on square 200x200;
+	drawBee(x,y); //drawing a bee on 100,100 
+	x=update(x); //changing X for a random amoount (+2...-2);
+	y=update(y); //changing Y for a random amoount (+2...-2);
+	ctx.strokeRect(0,0,200,200); //redrawing the margins of square.
+}
+
+var drawCircle=function(x,y,radius,fill){ //functions that draw circles;
+	ctx.fillStyle="gold";
+	ctx.strokeStyle="black";
+	ctx.beginPath();
+		ctx.arc(x,y,radius,0,Math.PI*2,false);
+	if (fill==true){
+		ctx.fill(); //filled circles
+	}
+	else{
+		ctx.stroke(); //or Strokes circles
+	}
+}
+//draw a Bee now
+var drawBee=function(x,y){ // draws a BEE primitive;
+	ctx.lineWidth=2;
+	drawCircle(x,y,8,true);
+	drawCircle(x,y,8,false);
+	drawCircle(x-5,y-11,5,false);
+	drawCircle(x+5,y-11,5,false);
+	drawCircle(x-2,y-1,2,false);
+	drawCircle(x+2,y-1,2,false);
+}
+var update=function(coordinate){ // updates value to +2...-2 of starting value;
+	var offset = Math.random()*4-2;
+	coordinate+=offset;
+	if (coordinate>200){
+		coordinate=200;
+	}
+	if (coordinate<0){
+		coordinate=0;
+	}
+	return coordinate;
+}
+
+setInterval(primeCall,30); // everything.
+
+</script>
+</body>
+</html>
