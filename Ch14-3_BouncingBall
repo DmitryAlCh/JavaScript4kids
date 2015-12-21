@@ -4,52 +4,71 @@
 </head>
 <body>
 <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
-<canvas id="canvas" width="200" height="200" style="border: 1px solid orange">Canvas</canvas>
+<canvas id="canvas" width="300" height="300" style="border: 1px dotted orange">Canvas</canvas>
 
 <script>
 var drawingArea=document.getElementById("canvas");
 var ctx=drawingArea.getContext("2d");
 
+var width=drawingArea.width; //we refer directly to <canvas> element in HTML code;
+var height=drawingArea.height;//the numbers from html code will be taken;
 
 var Ball=function(){ //create a class via constructor
-	this.x=100;
-	this.y=100;
-	this.xSpeed=-2;
-	this.ySpeed=3;
+	this.x=150;
+	this.y=150;
+	this.xSpeed=this.randomSpeed(); //set random speed to an object once an object is created;
+	this.ySpeed=this.randomSpeed(); 
 }
-var circle=function(x,y,radius,fillCircle){ //function to draw circle
+var circle=function(x,y,radius,fillCircle,color){ //function to draw circle
+	ctx.fillStyle=color;
 	ctx.beginPath();
 		ctx.arc(x,y,radius,0,Math.PI*2,false);
-	if (fillCircle==true){
+	if (fillCircle==true){ //fill 
 		ctx.fill();
 	}
 	else{
-		ctx.stroke();
+		ctx.stroke(); //or outline.
 	}
 }
 Ball.prototype.draw=function(){ //add separate function to class "Ball" as a method
-	circle(this.x,this.y,3,true);
+	var colorArray=["blue","orange","yellow","red","green","purple"];
+	var color=colorArray[Math.floor(Math.random()*colorArray.length)];
+	circle(this.x,this.y,3,true,color);
 	};
 Ball.prototype.move=function(){ //create method directly, to a Ball class
 	this.x+=this.xSpeed;
 	this.y+=this.ySpeed;
 	}
 Ball.prototype.checkCollision=function(){//create another method directly
-	if (this.x<0 || this.x>200){
+	if (this.x<0 || this.x>width){ //width - canvas width, from HTML canvas element
 		this.xSpeed=-this.xSpeed;
 		}
-	if (this.y<0 || this.y>200){
+	if (this.y<0 || this.y>height){ //height - canvas height, from HTML canvas element
 		this.ySpeed=-this.ySpeed;
 		}
 	}
-var ball=new Ball(); //making class instance, object
+Ball.prototype.randomSpeed=function(){ //create random xSpeed and ySpeed from-5 to+5
+	var sign=0; //speed directon;
+	if (Math.random()>0.5){ //set a random direction of movementl
+		sign=-1;
+	}
+	else{
+		sign=1;
+	}
+	return (Math.floor(Math.random()*5*sign)); //return random speed + random direction
+}
+var ballArray=[]; //making emty array for Ball obejct;
+for (var i=0;i<10;i++){ 
+	var ball=new Ball(); //eac time creat a new instance 
+	ballArray.push(ball); //add to an empty array new Ball instance each time
+}
 setInterval(function(){
-	ctx.clearRect(0,0,200,200); //clear canvas
-	
-	ball.draw(); 
-	ball.move();
-	ball.checkCollision();
-	
+	ctx.clearRect(0,0,width,height); //clear canvas
+	for (var i=0;i<ballArray.length;i++){
+		ballArray[i].draw(); 
+		ballArray[i].move();
+		ballArray[i].checkCollision();
+	}
 	},30);
 </script>
 </body>
