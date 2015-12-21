@@ -1,1 +1,56 @@
+<!DOCTYPE HTML>
+<head>
+	<title>bouncing ball</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+<canvas id="canvas" width="200" height="200" style="border: 1px solid orange">Canvas</canvas>
 
+<script>
+var drawingArea=document.getElementById("canvas");
+var ctx=drawingArea.getContext("2d");
+
+
+var Ball=function(){ //create a class via constructor
+	this.x=100;
+	this.y=100;
+	this.xSpeed=-2;
+	this.ySpeed=3;
+}
+var circle=function(x,y,radius,fillCircle){ //function to draw circle
+	ctx.beginPath();
+		ctx.arc(x,y,radius,0,Math.PI*2,false);
+	if (fillCircle==true){
+		ctx.fill();
+	}
+	else{
+		ctx.stroke();
+	}
+}
+Ball.prototype.draw=function(){ //add separate function to class "Ball" as a method
+	circle(this.x,this.y,3,true);
+	};
+Ball.prototype.move=function(){ //create method directly, to a Ball class
+	this.x+=this.xSpeed;
+	this.y+=this.ySpeed;
+	}
+Ball.prototype.checkCollision=function(){//create another method directly
+	if (this.x<0 || this.x>200){
+		this.xSpeed=-this.xSpeed;
+		}
+	if (this.y<0 || this.y>200){
+		this.ySpeed=-this.ySpeed;
+		}
+	}
+var ball=new Ball(); //making class instance, object
+setInterval(function(){
+	ctx.clearRect(0,0,200,200); //clear canvas
+	
+	ball.draw(); 
+	ball.move();
+	ball.checkCollision();
+	
+	},30);
+</script>
+</body>
+</html>
