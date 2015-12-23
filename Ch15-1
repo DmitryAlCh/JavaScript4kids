@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<head>
+	<title>Making canvas interactive</title>
+</head>
+<body>
+	<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+	<h1>Keybord Input</h1>
+	<canvas id="canvas" width="300" height="300" style="border:solid 2px orange"></canvas>
+	
+<script>
+
+var keyNames={
+	32:"space",
+	37:"left",
+	38:"top",
+	39:"right",
+	40:"down",
+	16:"shift",
+	13:"enter",
+	18:"alt"
+	};
+$("body").keydown(function(event){
+	console.log(keyNames[event.keyCode]);
+	//console.log(event.keyCode);
+	});
+</script>
+</body>
+</html>
