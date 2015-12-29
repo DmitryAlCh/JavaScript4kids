@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<head>
+	<title>Making canvas interactive</title>
+</head>
+<body>
+	<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+	<h1>Keybord Input</h1>
+	<canvas id="canvas" width="300" height="300" style="border:solid 2px orange"></canvas>
+	<button id="cancel">Cancel animation</button>
+<script>
+var canvas=document.getElementById("canvas");
+var width=canvas.width;
+var height=canvas.height;
+var ctx=canvas.getContext("2d");
+
+var circle=function(x,y,radius,filled,color){ //function to draw circle.
+	ctx.strokeStyle=color;
+	ctx.fillStyle=color;
+	ctx.beginPath();
+	ctx.arc(x,y,radius,0,Math.PI*2,false);
+	if (filled==true){
+		ctx.fill();
+	}else{
+		ctx.stroke();
+	}
+};
+var Ball=function(){
+	this.x=width/2; //starting point
+	this.y=height/2;
+	this.xSpeed=5; //starting speed
+	this.ySpeed=0;
+	
+}
+Ball.prototype.move=function(){
+	this.x+=this.xSpeed;
+	this.y+=this.ySpeed;
+	//makes ball go through walls
+	if (this.x<0){
+		this.x=width;
+	} else if (this.x>width){
+		this.x=0;
+	} else if (this.y>height){
+		this.y=0;
+	} else if (this.y<0){
+		this.y=height;
+	}
+}
+Ball.prototype.draw=function(){
+	circle(this.x,this.y,10,true,"blue");
+}
+Ball.prototype.setDirection=function(direction){ //changes speed direction
+	if (direction=="top"){
+		this.xSpeed=0;
+		this.ySpeed=-5;
+	} else if (direction=="down"){
+		this.xSpeed=0;
+		this.ySpeed=5;
+	} else if (direction=="right"){
+		this.xSpeed=5;
+		this.ySpeed=0;
+	} else if (direction=="left"){
+		this.xSpeed=-5;
+		this.ySpeed=0;
+	}
+}
+
+var keyNames={
+	32:"space",
+	37:"left",
+	38:"top",
+	39:"right",
+	40:"down",
+	16:"shift",
+	13:"enter",
+	18:"alt"
+	};
+var ball = new Ball();
+$("body").keydown(function(event){
+	//console.log(keyNames[event.keyCode]);
+	var direction=(keyNames[event.keyCode]);
+	ball.setDirection(direction);//send key code name to setDirection method
+	//console.log(event.keyCode);
+	});
+var timerId=setInterval(function(){
+	ctx.clearRect(0,0,width,height);
+	
+	ball.draw();
+	ball.move();
+		
+},30);
+$("#cancel").click(function(event){
+	clearInterval(timerId);
+});
+//var updateButton=function(timerId,buttonId){
+	//function changes name of button from 1 to another
+//}
+</script>
+</body>
+</html>
