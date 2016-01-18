@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<head>
+<title>Snake Game</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+<canvas id="canvas" width="400" height="400"></canvas>
+
+<script>
+var canvas=document.getElementById("canvas");
+var width=canvas.width;
+var height=canvas.height;
+var ctx=canvas.getContext("2d");
+var blockSize=10;
+var widthInBlocks=width/blockSize;
+var heightInBlocks=height/blockSize;
+var score=0;
+
+var drawBorder=function(){
+	ctx.fillstyle="gray";
+	ctx.fillRect(0,0,width,blockSize);//upper horizontal line
+	ctx.fillRect(0,height-blockSize,width,blockSize);//lower horizontal line
+	ctx.fillRect(0,blockSize,blockSize,height);//left vertical line
+	ctx.fillRect(width-blockSize,0,blockSize,height);//right vertical line
+	
+};
+var drawScore=function(score){
+	ctx.font="20px Courier";
+	ctx.textBaseLine="top";
+	ctx.textAlign="left";
+	ctx.fillText("score:"+score, 10,30);
+}
+var gameOver=function(){
+	ctx.font="60px Verdana";
+	ctx.fillStyle="red";
+	ctx.textAlign="center";
+	ctx.textBaseLine="middle";
+	ctx.fillText("Game Over", width/2,height/2);
+	clearInterval(intervalId);
+};
+
+var intervalId=setInterval(function(){
+	ctx.clearRect(0,0,width,height);
+	console.log("call");
+	score++;
+	drawScore(score);
+	//snake.move();
+	//snake.draw();
+	//apple.draw();
+	drawBorder();
+	},100);
+$("#canvas").click(function(event){
+	console.log("Interval cleared");
+	gameOver();
+	});
+</script>
+</body>
+</html>
