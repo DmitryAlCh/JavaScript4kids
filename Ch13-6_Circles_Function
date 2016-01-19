@@ -1,27 +1,99 @@
 <!DOCTYPE HTML>
 <head>
-<title>Canvas, Colored circles</title>
+<title>Snake Game</title>
 </head>
 <body>
-<script src="https://code.jquery.com/jquery-2.1.0.js"></script> 
-	<canvas id="canvas" width="400" height="400"></canvas>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+<canvas id="canvas" width="400" height="400"></canvas>
+
 <script>
 var canvas=document.getElementById("canvas");
+var width=canvas.width;
+var height=canvas.height;
 var ctx=canvas.getContext("2d");
+var blockSize=10;
+var widthInBlocks=width/blockSize;
+var heightInBlocks=height/blockSize;
+var score=0;
 
-var circle=function(x,y,radius,color){
-	ctx.strokeStyle=color;
-	ctx.beginPath();
-		ctx.arc(x,y,radius,Math.PI*2,false);
-	ctx.stroke();
+var drawBorder=function(){
+	ctx.fillstyle="gray";
+	ctx.fillRect(0,0,width,blockSize);//upper horizontal line
+	ctx.fillRect(0,height-blockSize,width,blockSize);//lower horizontal line
+	ctx.fillRect(0,blockSize,blockSize,height);//left vertical line
+	ctx.fillRect(width-blockSize,0,blockSize,height);//right vertical line
+	
+};
+var drawScore=function(score){ //adding a score text to upper left corner
+	ctx.font="20px Courier";   //of canvas
+	ctx.textBaseLine="top";
+	ctx.textAlign="left";
+	ctx.fillText("score:"+score, 10,30);
 }
-circle(100,100,20,"red");
-circle(100,100,30,"orange");
-circle(100,100,40,"yellow");
-circle(100,100,50,"green");
-circle(100,100,60,"skyBlue");
-circle(100,100,70,"blue");
-circle(100,100,80,"violet");
+var gameOver=function(){ //adding a "Game Over" text 
+	ctx.font="60px Verdana"; // stoping the setInterval
+	ctx.fillStyle="red";
+	ctx.textAlign="center";
+	ctx.textBaseLine="middle";
+	ctx.fillText("Game Over", width/2,height/2);
+	clearInterval(intervalId);
+};
+
+var intervalId=setInterval(function(){ //launching interval here
+	ctx.clearRect(0,0,width,height);
+	//console.log("call");
+	score++;
+	drawScore(score);
+	//snake.move();
+	//snake.draw();
+	//apple.draw();
+	drawBorder();
+	},100);
+$("#canvas").click(function(event){ //click handler forwards to Game Over
+	console.log("Interval cleared");
+	gameOver();
+	});
+var Block=function(col,row){ // basic grid and snake element
+	this.col=col;
+	this.row=row;
+};
+//var sampleBlock=new Block(5,5);
+var sampleCircle=new Block(3,4);
+
+Block.prototype.drawSquare=function(color){ //function draws basic block
+	var x=this.col*blockSize;
+	var y=this.row*blockSize;
+	ctx.fillStyle=color;
+	ctx.fillRect(x,y,blockSize,blockSize);
+	
+};
+Block.prototype.drawCirlce=function(color){ //this is going to be an apple for snake
+	var centerX=this.col*blockSize+blockSize/2;
+	var centerY=this.row*blockSize+blockSize/2;
+	ctx.fillStyle=color;
+	ctx.arc(centerX,centerY,blockSize/2, Math.PI*2,false);
+	ctx.fill();
+};
+Block.prototype.equal=function(otherBlock){ //we test if snake is over an applle
+	return this.col===otherBlock.col&&this.row===otherBlock.row;
+};
+
+var Snake=function(){ // snake, consisting of basic blocks
+	this.segments=[
+		new Block(6,5),
+		new Block(4,5),
+		new Block(5,5)
+	];
+	this.direction="right";
+	this.nextDirection="right";
+};
+Snake.prototype.draw=function(){
+	for (var i=0;i<this.segments.length;i++){
+		this.segments[i].drawSquare("blue");
+		console.log("draw");
+	};
+};
+var snake=new Snake();
 
 </script>
 </body>
