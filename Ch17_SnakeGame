@@ -7,14 +7,15 @@
 <canvas id="canvas" width="400" height="400"></canvas>
 
 <script>
-var canvas=document.getElementById("canvas");
-var width=canvas.width;
-var height=canvas.height;
-var ctx=canvas.getContext("2d");
-var blockSize=10;
-var widthInBlocks=width/blockSize;
-var heightInBlocks=height/blockSize;
-var score=0;
+
+	var canvas=document.getElementById("canvas");
+	var width=canvas.width;
+	var height=canvas.height;
+	var ctx=canvas.getContext("2d");
+	var blockSize=10;
+	var widthInBlocks=width/blockSize;
+	var heightInBlocks=height/blockSize;
+	var score=0;
 
 var drawBorder=function(){
 	ctx.fillstyle="gray";
@@ -24,14 +25,14 @@ var drawBorder=function(){
 	ctx.fillRect(width-blockSize,0,blockSize,height);//right vertical line
 	
 };
-var drawScore=function(score){
-	ctx.font="20px Courier";
+var drawScore=function(score){ //adding a score text to upper left corner
+	ctx.font="20px Courier";   //of canvas
 	ctx.textBaseLine="top";
 	ctx.textAlign="left";
 	ctx.fillText("score:"+score, 10,30);
 }
-var gameOver=function(){
-	ctx.font="60px Verdana";
+var gameOver=function(){ //adding a "Game Over" text 
+	ctx.font="60px Verdana"; // stoping the setInterval
 	ctx.fillStyle="red";
 	ctx.textAlign="center";
 	ctx.textBaseLine="middle";
@@ -39,20 +40,145 @@ var gameOver=function(){
 	clearInterval(intervalId);
 };
 
-var intervalId=setInterval(function(){
+var intervalId=setInterval(function(){ //launching interval here
 	ctx.clearRect(0,0,width,height);
-	console.log("call");
-	score++;
+	//console.log("call");
+	//score++;
 	drawScore(score);
-	//snake.move();
-	//snake.draw();
-	//apple.draw();
+	snake.move();
+	snake.draw();
+	apple.draw();
 	drawBorder();
 	},100);
-$("#canvas").click(function(event){
+$("#canvas").click(function(event){ //click handler forwards to Game Over
 	console.log("Interval cleared");
 	gameOver();
 	});
+var Block=function(col,row){ // basic grid and snake element
+	this.col=col;
+	this.row=row;
+};
+//var sampleBlock=new Block(5,5);
+var sampleCircle=new Block(3,4);
+
+Block.prototype.drawSquare=function(color){ //function draws basic block
+	var x=this.col*blockSize;
+	var y=this.row*blockSize;
+	ctx.fillStyle=color;
+	ctx.fillRect(x,y,blockSize,blockSize);
+	
+};
+Block.prototype.drawCirlce=function(color){ //this is going to be an apple for snake
+	var centerX=this.col*blockSize+blockSize/2;
+	var centerY=this.row*blockSize+blockSize/2;
+	ctx.fillStyle=color;
+	ctx.arc(centerX,centerY,blockSize/2, Math.PI*2,false);
+	ctx.fill();
+};
+Block.prototype.equal=function(otherBlock){ //we test if snake is over an applle
+	return this.col===otherBlock.col&&this.row===otherBlock.row;
+};
+
+var Snake=function(){ // snake, consisting of basic blocks
+	this.segments=[
+		new Block(6,5),
+		new Block(4,5),
+		new Block(5,5)
+	];
+	this.direction="right";
+	this.nextDirection="right";
+};
+Snake.prototype.draw=function(){
+	for (var i=0;i<this.segments.length;i++){
+		this.segments[i].drawSquare("blue");
+		console.log("draw");
+	};
+};
+
+Snake.prototype.move=function(){
+	var head=this.segments[0];
+	var newHead;
+	
+	this.direction=this.nextDirection;
+	
+	if (this.direction==="right"){
+		newHead=new Block(head.col+1,head.row); //same as new Block (this.segments[0].col, this.segments[0].row);
+	} else if(this.direction==="down"){
+		newHead=new Block(head.col,head.row+1);		
+	} else if (this.direction==="left"){
+		newHead=new Block(head.col-1,head.row);
+	} else if (this.direction==="up"){
+		newHead=new Block(head.col, head.row-1);
+	}
+	
+	if (this.checkCollision(newHead)){
+		gameOver();
+		return;
+	}
+	this.segments.unshift(newHead);
+	if (newHead.equal(apple.position)){
+		score++;
+		apple.move();
+	} else {
+		this.segments.pop();
+	}
+};
+Snake.prototype.checkCollision=function(head){
+	var leftCollision=(head.col===0);
+	var topCollision=(head.row===0);
+	var rightCollision=(head.col===widthInBlocks-1);
+	var bottomCollision=(head.row===heightInBlocks-1);
+	
+	var wallCollision=leftCollision||topCollision||rightCollision||bottomCollision;
+	
+	var selfCollision=false;
+	
+	for (var i=i;i<this.segments.length; i++){
+		if (head.equal(this.segments[i])){
+			selfCollision=true;
+		}
+	}
+	return wallCollision || selfCollision;
+};
+var directions={
+	37:"left",
+	38:"up",
+	39:"right",
+	40:"down"
+	};
+$("body").keydown(function(event){
+	var newDirection=directions[event.keyCode];
+	if (newDirection !== undefined){
+		snake.setDirection(newDirection);
+		console.log(event.keyCode);
+		}
+	});
+Snake.prototype.setDirection=function(newDirection){
+	if(this.direction=="up" && newDirection=="down"){
+		return;
+	}else if (this.direction==="right" && newDirection ==="left"){
+		return;
+	}else if (this.direction ==="down" && newDirection==="up"){
+		return;
+	} else if (this.direction==="left" && newDirection==="right"){
+		return;
+	}
+	this.nextDirection=newDirection;
+};
+var Apple=function(){
+	this.position=new Block(10,10);
+};
+Apple.prototype.draw=function(){
+	this.position.drawCirlce("LimeGreen");
+};
+Apple.prototype.move=function(){
+	var randomCol=Math.floor(Math.random()*(widthInBlocks-2))+1;
+	var randomRow=Math.floor(Math.random()*(heightInBlocks-2))+1;
+	this.position=new Block(randomCol,randomRow);
+};
+var snake=new Snake();
+var apple=new Apple();
+
 </script>
 </body>
 </html>
