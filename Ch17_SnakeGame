@@ -58,8 +58,7 @@ var Block=function(col,row){ // basic grid and snake element
 	this.col=col;
 	this.row=row;
 };
-//var sampleBlock=new Block(5,5);
-var sampleCircle=new Block(3,4);
+
 
 Block.prototype.drawSquare=function(color){ //function draws basic block
 	var x=this.col*blockSize;
@@ -72,6 +71,7 @@ Block.prototype.drawCirlce=function(color){ //this is going to be an apple for s
 	var centerX=this.col*blockSize+blockSize/2;
 	var centerY=this.row*blockSize+blockSize/2;
 	ctx.fillStyle=color;
+	ctx.openPath();
 	ctx.arc(centerX,centerY,blockSize/2, Math.PI*2,false);
 	ctx.fill();
 };
@@ -82,8 +82,8 @@ Block.prototype.equal=function(otherBlock){ //we test if snake is over an applle
 var Snake=function(){ // snake, consisting of basic blocks
 	this.segments=[
 		new Block(6,5),
-		new Block(4,5),
-		new Block(5,5)
+		new Block(5,5),
+		new Block(4,5)
 	];
 	this.direction="right";
 	this.nextDirection="right";
